@@ -63,7 +63,7 @@ namespace Memoteca.Controllers
             return Ok(pensamentos);
         }
 
-        [HttpGet("{pagina}/{quantidade}")]
+        [HttpGet("paginado")]
         public async Task<ActionResult<RetornoPaginado<PensamentoModel>>> BuscarPaginado(
             [FromQuery] int pagina = 1,
             [FromQuery] int quantidade = 10)
