@@ -56,14 +56,14 @@ namespace Memoteca.Controllers
             return Ok(pensamento);
         }
 
-        [HttpGet("{pagina}/{quantidade}")]
+        [HttpGet("")]
         public async Task<ActionResult<List<PensamentoModel>>> BuscarTodos()
         {
             var pensamentos = await _service.BuscarTodosPensamentosAsync();
             return Ok(pensamentos);
         }
 
-        [HttpGet("paginado")]
+        [HttpGet("{pagina}/{quantidade}")]
         public async Task<ActionResult<RetornoPaginado<PensamentoModel>>> BuscarPaginado(
             [FromQuery] int pagina = 1,
             [FromQuery] int quantidade = 10)
