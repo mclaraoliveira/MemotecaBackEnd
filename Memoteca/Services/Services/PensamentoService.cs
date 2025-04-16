@@ -18,6 +18,10 @@ namespace Memoteca.Services.Services
         {
             try
             {
+                var pensamentoExistente = await _repository.BuscarPensamentoPorIdAsync(id);
+                if (pensamentoExistente == null)
+                    throw new ArgumentException("Pensamento não encontrado.");
+
                 return await _repository.AtualizarPensamentoAsync(id, pensamento);
             }
             catch (Exception ex)
@@ -30,7 +34,11 @@ namespace Memoteca.Services.Services
         {
             try
             {
-                return await _repository.BuscarPensamentoPorIdAsync(id);
+                var pensamento = await _repository.BuscarPensamentoPorIdAsync(id);
+                if (pensamento == null)
+                    throw new ArgumentException("Pensamento não encontrado.");
+
+                return pensamento;
             }
             catch (Exception ex)
             {
@@ -42,6 +50,9 @@ namespace Memoteca.Services.Services
         {
             try
             {
+                if (pagina < 1 || quantidade < 1)
+                    throw new ArgumentException("Os parâmetros de paginação devem ser maiores que zero.");
+
                 return await _repository.BuscarPensamentosPaginadosAsync(pagina, quantidade);
             }
             catch (Exception ex)
@@ -66,6 +77,9 @@ namespace Memoteca.Services.Services
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(pensamento.Pensamento))
+                    throw new ArgumentException("O pensamento não pode ser vazio.");
+
                 return await _repository.CriarPensamentoAsync(pensamento);
             }
             catch (Exception ex)
@@ -78,6 +92,10 @@ namespace Memoteca.Services.Services
         {
             try
             {
+                var pensamento = await _repository.BuscarPensamentoPorIdAsync(id);
+                if (pensamento == null)
+                    throw new ArgumentException("Pensamento não encontrado.");
+
                 return await _repository.ExcluirPensamentoAsync(id);
             }
             catch (Exception ex)
